@@ -3,3 +3,8 @@
     background:#999;
     opacity:0.6;
  }
+
+
+ [v-cloak] {
+    display: none
+ }

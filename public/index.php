@@ -38,12 +38,12 @@ if(!isset($_SESSION['zalogowany'])) {
         <div class="container" style="padding-top:5px">
 
             <div style="width:400px">
-                <p v-if="emptyprompt"><b>Skończyły się słówka! Zmień counterset albo dodaj nowe</b></p>
+                <p v-if="emptyprompt || !questions.length"><b>Skończyły się słówka! Zmień counterset albo dodaj nowe</b></p>
                 <div style="display:flex;justify-content:space-between;width:400px">
                     <span style="font-size:12px">Counter: {{currentQuestion?.counter}}</span>
                     <span style="font-size:10px">id: {{currentQuestion?.id}}</span>
                 </div>
-                <p style="margin-top:4px"><b>Przetłumacz:</b> {{currentQuestion?.question}} </p>
+                <p style="margin-top:4px"><b>Przetłumacz:</b> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.answer}} </span>  </p>
 
                 <input type="text" @keyup.enter.stop="handleAnswer" v-model="answer" class="form-control mb-2"
                     id="answerinput">
@@ -52,11 +52,20 @@ if(!isset($_SESSION['zalogowany'])) {
                     :class="{'disabledcursor': answerTrue || answerFalse}"
                     :disabled="answerTrue || answerFalse">Answer</button>
                 <button @click="next" class="btn btn-success" style="margin-left:1em" id="nextbutton">Next</button>
+                <button @click="prev" class="btn btn-secondary" style="margin-left:1em" id="nextbutton">Prev</button>
 
-                <p v-if="answerFalse"><b style="color:red">ŹLE! </b> <span style="font-size:14px">Prawidłowa
-                        odpowiedź:</span> {{currentQuestion?.answer}}</p>
-                <p v-if="answerTrue"><b style="color:green">DOBRZE! </b>Prawidłowa odpowiedź:
-                    {{currentQuestion?.answer}}</p>
+                <br>
+                <button class="btn btn-success btn-sm" style="margin:2px" @click="setCounter(1)">+1</button>
+                <button class="btn btn-success btn-sm" @click="setCounter(5)">+5</button>
+
+
+
+                <p v-if="answerFalse"><b style="color:red">ŹLE! </b> 
+                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span> 
+                </p>
+                <p v-if="answerTrue"><b style="color:green">DOBRZE! </b>
+                                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span> </p>
+                </p>
 
 
 
@@ -76,6 +85,23 @@ if(!isset($_SESSION['zalogowany'])) {
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
+                    </select>
+                </p>
+
+                <p>
+                    Tryb:
+                    <select name="" id="" v-model="settings.tryb" @change="updateSettings">
+                        <option value="POLDE">Polski - obcy</option>
+                        <option value="DEPOL">Obcy - polski</option>
+                    </select>
+                </p>
+
+                <p>
+                    Tematyka:
+
+                    <select name="" id="" @change="updateSettings" v-model="settings.currenttag">
+                        <option value="">wszystkie</option>
+                        <option :value="tag" v-for="tag in tags">{{tag}}</option>
                     </select>
                 </p>
 

@@ -20,13 +20,13 @@
             </li> -->
     
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/views/lista.php">Lista/dodawanie</a>
+              <a class="nav-link" aria-current="page" href="/lista.php">Lista/dodawanie</a>
             </li>
           </ul>
 
             <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left:auto">
               <li class="nav-item">
-                <select class="form-select" id="languageinput" v-model="currentlanguage">
+                <select class="form-select" id="languageinput" v-model="settings.activelanguage" @change="updateSettings">
                   <option value="SP">Hiszpański</option>
                   <option value="DE">Niemiecki</option>
                   <option value="RU">Rosyjski</option>
