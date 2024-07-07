@@ -12,7 +12,7 @@ if(!isset($_SESSION['zalogowany'])) {
 if($_SERVER['REQUEST_METHOD'] != 'POST') return;
 
 
-require($_SERVER['DOCUMENT_ROOT'] . '/db.php');
+require('db.php');
 
 
 $dane = json_decode(file_get_contents('php://input'));
