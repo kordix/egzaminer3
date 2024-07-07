@@ -1,37 +1,48 @@
 <?php
-session_start();
-//if($_SERVER['REQUEST_METHOD'] != 'POST') return;
+echo 'fasdfdsafds';
 
-require_once('db.php');
+session_start();
+
+if(!isset($_SESSION['zalogowany'])) {
+    echo 'NIEZALOGOWANY';
+    return;
+}
+
+require('db.php');
+
+
+$allowed = ['activelanguage','counterset','sentences','operator','currenttag','tryb','random'];
+
 
 //replace
 $dane = json_decode(file_get_contents('php://input'));
 
-//$id = $dane->id;
+echo 'fasfafdsaf';
 
-$kwerenda = '';
 
-foreach ($dane as $key => $value) {
-    $kwerenda .= $key;
-    $kwerenda .= '=';
-    $kwerenda .= "'".$value."'";
-    $kwerenda .= ',';
+
+$params = [];
+// $params['token'] = $dane->token;
+
+
+$setStr = "";
+foreach ($allowed as $key) {
+    if (property_exists($dane, $key) && $key != "id" && $key != "token") {
+        $setStr .= "`" . str_replace("`", "``", $key) . "` = :" . $key . ",";
+        $params[$key] = $dane->$key;
+    }   
 }
+$setStr = rtrim($setStr, ",");
 
-$kwerenda = substr($kwerenda, 0, -1);
-$query = "UPDATE settings SET $kwerenda WHERE user_id = ?";
+
+
+$id = $_SESSION['id'];
+echo $setStr;
+$query = "UPDATE settings SET $setStr WHERE user_id = $id";
 echo $query;
-
-$sth = $dbh->prepare($query);
-
-if ($sth->execute([$_SESSION['id']]) == false) {
-    echo 'nie udało się';
-}
+$sth = $dbh->prepare($query)->execute($params);
 
 
-
-
-//replace
 
 ?>
 

@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `settings` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `activelanguage` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'DE',
   `counterset` int(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 5,
