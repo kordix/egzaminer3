@@ -26,9 +26,9 @@ if(count($rows) > 0){
 
 } else{
 
-    $query = "INSERT INTO results (question_id, user_id) VALUES (?,?)";
+    $query = "INSERT INTO results (question_id, user_id , counter) VALUES (?,?,?)";
     $sth2 = $dbh->prepare($query);
-    $sth2->execute([$id, $_SESSION['id']]);
+    $sth2->execute([$id, $_SESSION['id'],$counter ]);
 
     
 }
