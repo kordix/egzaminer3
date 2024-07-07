@@ -17,6 +17,8 @@ if(!isset($_SESSION['zalogowany'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Egzaminer 3</title>
 
+    <link rel="icon" href="data:;base64,=">
+
 
     <link rel="stylesheet" href="css/mybootstrap.css">
     <link rel="stylesheet" href="css/style.css">
