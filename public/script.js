@@ -170,7 +170,7 @@ let app = Vue.createApp({
             this.next();
         },
         updateSettings() {
-            axios.post('/api/updatesettings.php', this.settings)
+            axios.post('/api/updatesettings.php', this.settings).then((res) => location.reload())
         }
 
     },
