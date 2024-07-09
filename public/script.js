@@ -35,6 +35,8 @@ let app = Vue.createApp({
         return {
             dupa: 'afsadfs',
             questions: [],
+            questionsFiltered: [],
+
             currentQuestion: {},
             answer: '',
             answerTrue: false,
@@ -59,8 +61,6 @@ let app = Vue.createApp({
                 this.questions = this.questions.filter((el) => el.tags == self.settings.currenttag);
 
             }
-
-
 
             if (this.settings.operator == '<') {
                 this.questions = this.questions.filter((el) => el.counter < self.settings.counterset);

@@ -49,7 +49,7 @@ if(!isset($_SESSION['zalogowany'])) {
                 <p style="margin-top:4px"><b>Przetłumacz:</b> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.answer}} </span>  </p>
 
                 <input type="text" @keyup.enter.stop="handleAnswer" v-model="answer" class="form-control mb-2"
-                    id="answerinput">
+                    id="answerinput" autocomplete="off">
 
                 <button @click="handleAnswer" class="btn btn-primary mt-1" style="transition:1s"
                     :class="{'disabledcursor': answerTrue || answerFalse}"
@@ -70,14 +70,14 @@ if(!isset($_SESSION['zalogowany'])) {
 
                 <div v-if="editmode">
                     <div class="mb-2 mt-2">
-                        <label for="" style="width:80px;display:inline-block">Question:</label><input type="text" v-model="currentQuestion.question">
+                        <label for="" style="width:80px;display:inline-block">Question:</label><input type="text" v-model="currentQuestion.question" autocomplete="off">
                     </div>
                     <div class="mb-2">
-                        <label for="" style="width:80px;display:inline-block">Answer:</label><input type="text" v-model="currentQuestion.answer">
+                        <label for="" style="width:80px;display:inline-block">Answer:</label><input type="text" v-model="currentQuestion.answer" autocomplete="off">
                     </div>
 
                     <div class="mb-2">
-                        <label for="" style="width:80px;display:inline-block">Tematyka:</label><input type="text" v-model="currentQuestion.tags">
+                        <label for="" style="width:80px;display:inline-block">Tematyka:</label><input type="text" v-model="currentQuestion.tags" autocomplete="off">
                     </div>
 
                     <button class="btn btn-primary mr-1" @click="updateQuestion"><i class="bi bi-floppy"></i></button>
