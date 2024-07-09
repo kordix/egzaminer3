@@ -22,6 +22,7 @@ if(!isset($_SESSION['zalogowany'])) {
 
     <link rel="stylesheet" href="css/mybootstrap.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
 
 
 </head>
@@ -57,8 +58,36 @@ if(!isset($_SESSION['zalogowany'])) {
                 <button @click="prev" class="btn btn-secondary" style="margin-left:1em" id="nextbutton">Prev</button>
 
                 <br>
-                <button class="btn btn-success btn-sm" style="margin:2px" @click="setCounter(1)">+1</button>
-                <button class="btn btn-success btn-sm" @click="setCounter(5)">+5</button>
+                <div style="display:flex;justify-content:space-between">
+                    <div>
+                        <button class="btn btn-success btn-sm" style="margin:2px" @click="setCounter(1)">+1</button>
+                        <button class="btn btn-success btn-sm" @click="setCounter(5)">+5</button>
+                    </div>
+
+                    <button class="btn btn-sm btn-warning" @click="editmode = !editmode"><i class="bi bi-pen"></i></button>
+
+                </div>
+
+                <div v-if="editmode">
+                    <div class="mb-2 mt-2">
+                        <label for="" style="width:80px;display:inline-block">Question:</label><input type="text" v-model="currentQuestion.question">
+                    </div>
+                    <div class="mb-2">
+                        <label for="" style="width:80px;display:inline-block">Answer:</label><input type="text" v-model="currentQuestion.answer">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="" style="width:80px;display:inline-block">Tematyka:</label><input type="text" v-model="currentQuestion.tags">
+                    </div>
+
+                    <button class="btn btn-primary mr-1" @click="updateQuestion"><i class="bi bi-floppy"></i></button>
+                    <button class="btn btn-secondary" @click="exchange"><i class="bi bi-arrow-clockwise"></i></button>
+
+                    <p v-if="updateprompt"><b>Zapisano zmiany!</b></p>
+
+
+
+                </div>
 
 
 

@@ -41,7 +41,9 @@ let app = Vue.createApp({
             answerFalse: false,
             settings: {},
             emptyprompt: false,
-            tags:[]
+            tags:[],
+            editmode:false,
+            updateprompt:false
 
         }
     },
@@ -78,7 +80,8 @@ let app = Vue.createApp({
 
         },
         next() {
-            self = this;
+            this.updateprompt = false;
+            let self = this;
             let currentQuestionIndex = this.questions.findIndex((el)=>el.id == self.currentQuestion.id);
             this.currentQuestion = this.questions[currentQuestionIndex + 1];
             if (!this.currentQuestion) {
@@ -171,6 +174,17 @@ let app = Vue.createApp({
         },
         updateSettings() {
             axios.post('/api/updatesettings.php', this.settings).then((res) => location.reload())
+        },
+        updateQuestion(){
+            axios.post('/api/questionupdate.php',this.currentQuestion);
+            this.updateprompt = true;
+        },
+        exchange(){
+            let questiontemp = this.currentQuestion.question;
+            let answertemp = this.currentQuestion.answer;
+
+            this.currentQuestion.question = answertemp;
+            this.currentQuestion.answer = questiontemp;
         }
 
     },
