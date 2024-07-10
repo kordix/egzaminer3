@@ -10,7 +10,7 @@ require('db.php');
 
 
 
-$allowed = ['answer','question','tags','language'];
+$allowed = ['answer','question','tags','language','level'];
 
 
 

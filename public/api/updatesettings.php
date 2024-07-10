@@ -11,7 +11,7 @@ if(!isset($_SESSION['zalogowany'])) {
 require('db.php');
 
 
-$allowed = ['activelanguage','counterset','sentences','operator','currenttag','tryb','random'];
+$allowed = ['activelanguage','counterset','sentences','operator','currenttag','tryb','random','level'];
 
 
 //replace

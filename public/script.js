@@ -56,22 +56,28 @@ let app = Vue.createApp({
 
 
             this.questions = this.questions.filter((el) => el.language == self.settings.activelanguage);
+            this.questionsFiltered = this.questions;
 
             if(this.settings.currenttag){
-                this.questions = this.questions.filter((el) => el.tags == self.settings.currenttag);
+                this.questionsFiltered = this.questionsFiltered.filter((el) => el.tags == self.settings.currenttag);
 
             }
 
             if (this.settings.operator == '<') {
-                this.questions = this.questions.filter((el) => el.counter < self.settings.counterset);
+                this.questionsFiltered = this.questionsFiltered.filter((el) => el.counter < self.settings.counterset);
             }
 
             if (this.settings.operator == '>') {
-                this.questions = this.questions.filter((el) => el.counter >= self.settings.counterset);
+                this.questionsFiltered = this.questionsFiltered.filter((el) => el.counter >= self.settings.counterset);
+            }
+
+            if(this.settings.level){
+                this.questionsFiltered = this.questionsFiltered.filter((el) => el.level == self.settings.level);
+
             }
 
 
-            this.currentQuestion = this.questions.find((el) => el.language = self.settings.activelanguage);
+            this.currentQuestion = this.questionsFiltered.find((el) => el.language = self.settings.activelanguage);
 
             this.tags = distinctValues(this.questions, 'tags');
 
@@ -82,13 +88,13 @@ let app = Vue.createApp({
         next() {
             this.updateprompt = false;
             let self = this;
-            let currentQuestionIndex = this.questions.findIndex((el)=>el.id == self.currentQuestion.id);
-            this.currentQuestion = this.questions[currentQuestionIndex + 1];
+            let currentQuestionIndex = this.questionsFiltered.findIndex((el)=>el.id == self.currentQuestion.id);
+            this.currentQuestion = this.questionsFiltered[currentQuestionIndex + 1];
             if (!this.currentQuestion) {
-                this.currentQuestion = this.questions.find((el) => el.language = self.settings.activelanguage);
+                this.currentQuestion = this.questionsFiltered.find((el) => el.language = self.settings.activelanguage);
 
 
-                if (!this.currentQuestion || this.questions.length == 1) {
+                if (!this.currentQuestion || this.questionsFiltered.length == 1) {
                     this.emptyprompt = true;
                     return;
                 }
@@ -107,15 +113,14 @@ let app = Vue.createApp({
         prev() {
             self = this;
 
-            let currentQuestionIndex = this.questions.findIndex((el) => el.id == self.currentQuestion.id);
-            this.currentQuestion = this.questions[currentQuestionIndex - 1];
+            let currentQuestionIndex = this.questionsFiltered.findIndex((el) => el.id == self.currentQuestion.id);
+            this.currentQuestion = this.questionsFiltered[currentQuestionIndex - 1];
 
             if (!this.currentQuestion) {
                 console.log('NIE WIDZI');
-                this.currentQuestion = this.questions[this.questions.length - 1];
-                // this.currentQuestion = this.questions.filter((el) => el.language = self.activelanguage)?.sort((a, b) => b.value + a.value)[0];
+                this.currentQuestion = this.questionsFiltered[this.questionsFiltered.length - 1];
 
-                if (!this.currentQuestion || this.questions.length == 1) {
+                if (!this.currentQuestion || this.questionsFiltered.length == 1) {
                     this.emptyprompt = true;
                     return;
                 }

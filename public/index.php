@@ -80,6 +80,16 @@ if(!isset($_SESSION['zalogowany'])) {
                         <label for="" style="width:80px;display:inline-block">Tematyka:</label><input type="text" v-model="currentQuestion.tags" autocomplete="off">
                     </div>
 
+                    <div class="mb-2">
+                    <label for="">Poziom:</label> 
+                    <select name="" id="" v-model="currentQuestion.level">
+                        <option value="basic">Podstawowe</option>
+                        <option value="advanced">Zaawansowane</option>
+
+                    </select>
+                    </div>
+                
+
                     <button class="btn btn-primary mr-1" @click="updateQuestion"><i class="bi bi-floppy"></i></button>
                     <button class="btn btn-secondary" @click="exchange"><i class="bi bi-arrow-clockwise"></i></button>
 
@@ -132,9 +142,22 @@ if(!isset($_SESSION['zalogowany'])) {
 
                     <select name="" id="" @change="updateSettings" v-model="settings.currenttag">
                         <option value="">wszystkie</option>
-                        <option :value="tag" v-for="tag in tags">{{tag}}</option>
+                        <option :value="tag" v-for="tag in tags">{{tag}}  {{questions.filter((el)=>el.tags == tag).length}} / {{questions.filter((el)=>el.tags == tag).length}}  </option>
                     </select>
                 </p>
+
+                <p>
+                    Level:
+
+                     <select name="" id="" v-model="settings.level" @change="updateSettings">
+                        <option value="">wszystkie</option>
+                        <option value="basic">Podstawowe</option>
+                        <option value="advanced">Zaawansowane</option>
+                    </select>
+
+                </p>
+
+
 
             </div>
         </div>
