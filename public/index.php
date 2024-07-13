@@ -70,10 +70,10 @@ if(!isset($_SESSION['zalogowany'])) {
 
                 <div v-if="editmode">
                     <div class="mb-2 mt-2">
-                        <label for="" style="width:80px;display:inline-block">Question:</label><input type="text" v-model="currentQuestion.question" autocomplete="off">
+                        <label for="" style="width:80px;display:inline-block">Pytanie (pol):</label><input type="text" v-model="currentQuestion.question" autocomplete="off">
                     </div>
                     <div class="mb-2">
-                        <label for="" style="width:80px;display:inline-block">Answer:</label><input type="text" v-model="currentQuestion.answer" autocomplete="off">
+                        <label for="" style="width:80px;display:inline-block">Odpowiedź (obcy):</label><input type="text" v-model="currentQuestion.answer" autocomplete="off">
                     </div>
 
                     <div class="mb-2">
