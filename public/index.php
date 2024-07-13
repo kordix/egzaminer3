@@ -68,6 +68,14 @@ if(!isset($_SESSION['zalogowany'])) {
 
                 </div>
 
+                <div class="mt-1" id="refericons"> 
+
+                <a :href="'https://es.wiktionary.org/wiki/'+currentQuestion.answer" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/meta/6/61/Wiktionary_propsed-smurrayinchester.png" alt="" style="width:30px;height:30px;transition:0.5" class="opacityhover">
+                </a>
+
+                </div>
+
                 <div v-if="editmode">
                     <div class="mb-2 mt-2">
                         <label for="" style="width:80px;display:inline-block">Pytanie (pol):</label><input type="text" v-model="currentQuestion.question" autocomplete="off">

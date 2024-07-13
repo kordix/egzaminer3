@@ -8,3 +8,15 @@
  [v-cloak] {
     display: none
  }
+
+ #refericons > img:hover {
+   opacity:0.8
+ }
+
+ .opacityhover:hover {
+   opacity:0.8;
+ }
+
+ .opacityhover {
+   transition:0.3s
+ }
