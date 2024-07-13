@@ -20,7 +20,7 @@ $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 if(count($rows) > 0){
 
-    $query = "update results set counter = ? where question_id = ? and user_id = ?";
+    $query = "update results set counter = ? , updated_at = NOW() where question_id = ? and user_id = ?";
     $sth2 = $dbh->prepare($query);
     $sth2->execute([$counter, $id, $_SESSION['id']]);
 

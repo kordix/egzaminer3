@@ -50,21 +50,24 @@ if(!isset($_SESSION['zalogowany'])) {
            
 
         <hr>
-        <table style="width:400px">
+        <table>
             <thead style="font-weight:bold">
-                <tr>
-                    <td>Słowo</td>
-                    <td>Tłumaczenie</td>
-                    <td>Counter</td>
-                    <td>Tag</td>
+                <tr style="cursor:pointer">
+                    <td @click="sortuj('question')">Słowo</td>
+                    <td @click="sortuj('answer')">Tłumaczenie</td>
+                    <td @click="sortuj('counter')">Counter</td>
+                    <td @click="sortuj('tags')">Tag</td>
+                    <td  @click="sortuj('updated_at')">Ostatnia akcja</td>
                 </tr>
             </thead>
             <tbody>
-                 <tr v-for="elem in questions">
+                 <tr v-for="elem in filtered">
                     <td>{{elem.question}}</td>
                     <td>{{elem.answer}}</td> 
                     <td>{{elem.counter}}</td>
                     <td>{{elem.tags}}</td> 
+                    <td>{{elem.updated_at}}</td> 
+
                 </tr>
             </tbody>
         </table>
