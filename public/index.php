@@ -142,7 +142,7 @@ if(!isset($_SESSION['zalogowany'])) {
 
                     <select name="" id="" @change="updateSettings" v-model="settings.currenttag">
                         <option value="">wszystkie</option>
-                        <option :value="tag" v-for="tag in tags">{{tag}}  {{questions.filter((el)=>el.tags == tag)?.filter((el)=>el.counter < settings.counterset)?.length}} / {{questions.filter((el)=>el.tags == tag).length}}  </option>
+                        <option :value="tag" v-for="tag in tags">{{tag}}  {{questions.filter((el)=>el.tags == tag)?.filter((el)=>el.counter > settings.counterset)?.length}} / {{questions.filter((el)=>el.tags == tag).length}}  </option>
                     </select>
                 </p>
 
