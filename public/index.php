@@ -70,7 +70,11 @@ if(!isset($_SESSION['zalogowany'])) {
 
                 <div class="mt-1" id="refericons"> 
 
-                <a :href="'https://es.wiktionary.org/wiki/'+currentQuestion.answer" target="_blank">
+                <a v-if="settings.activelanguage == 'SP'" :href="'https://es.wiktionary.org/wiki/'+currentQuestion.answer" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/meta/6/61/Wiktionary_propsed-smurrayinchester.png" alt="" style="width:30px;height:30px;transition:0.5" class="opacityhover">
+                </a>
+
+                 <a v-if="settings.activelanguage == 'DE'" :href="'https://de.wiktionary.org/wiki/'+currentQuestion.answer" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/meta/6/61/Wiktionary_propsed-smurrayinchester.png" alt="" style="width:30px;height:30px;transition:0.5" class="opacityhover">
                 </a>
 
