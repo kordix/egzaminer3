@@ -186,7 +186,7 @@ if(!isset($_SESSION['zalogowany'])) {
                     </select>
                 </p>
 
-                <p>
+                <p id="voicelog">
                    
                 </p>
 
