@@ -208,6 +208,20 @@ if(!isset($_SESSION['zalogowany'])) {
     <script src="script.js">
 
     </script>
+
+
+<script>
+
+    document.querySelector('#hamburger').addEventListener('click', function(){
+        let maxHeight = document.querySelector('#navbarcollapse').style.maxHeight;
+        if(!maxHeight || maxHeight  == '0px'){
+            document.querySelector('#navbarcollapse').style.maxHeight = '200px';
+        } else {
+            document.querySelector('#navbarcollapse').style.maxHeight = '0px';
+        }
+
+    })
+</script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-collapse">
+        <div class="navbar-collapse" id="navbarcollapse">
       
           <ul class="navbar-nav">
             <li class="nav-item">
