@@ -190,7 +190,7 @@ if(!isset($_SESSION['zalogowany'])) {
                    
                 </p>
 
-                <p style="font-size:10px">v 1.1</p>
+                <p style="font-size:10px">v 1.11</p>
 
 
 
