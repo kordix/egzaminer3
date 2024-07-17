@@ -29,6 +29,28 @@ function distinctValues(arr, prop) {
     });
 }
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+
+let speech = new SpeechSynthesisUtterance();
+
+let voices = [];
+window.speechSynthesis.onvoiceschanged = () => {
+    voices = window.speechSynthesis.getVoices();
+
+    console.log(voices);
+
+    console.log(voices);
+
+    speech.voice = voices[16];
+};
+
 
 let app = Vue.createApp({
     data() {
@@ -41,7 +63,9 @@ let app = Vue.createApp({
             answer: '',
             answerTrue: false,
             answerFalse: false,
-            settings: {},
+            settings: {
+                random:false
+            },
             emptyprompt: false,
             tags:[],
             editmode:false,
@@ -76,6 +100,11 @@ let app = Vue.createApp({
 
             }
 
+            if(this.settings.random){
+                this.questionsFiltered = shuffleArray(this.questionsFiltered);
+
+            }
+
 
             this.currentQuestion = this.questionsFiltered.find((el) => el.language = self.settings.activelanguage);
 
@@ -107,6 +136,10 @@ let app = Vue.createApp({
 
             setTimeout(function () {
                 document.querySelector('#answerinput').focus()
+
+                if(self.settings.tryb == 'DEPOLHEAR'){
+                    self.speak()
+                }
             }, 150)
 
         },
@@ -151,7 +184,7 @@ let app = Vue.createApp({
                 }
             }
 
-            if (this.settings.tryb == 'DEPOL') {
+            if (this.settings.tryb == 'DEPOL' || this.settings.tryb == 'DEPOLHEAR') {
                 if (this.answer.escapeDiacritics().toLowerCase() == this.currentQuestion?.question.escapeDiacritics().toLowerCase()) {
                     answerTrue = true;
                 }
@@ -178,7 +211,13 @@ let app = Vue.createApp({
             this.next();
         },
         updateSettings() {
-            axios.post('/api/updatesettings.php', this.settings).then((res) => location.reload())
+            let form = { ...this.settings };
+            if(form.random){
+                form.random = 1;
+            } else {
+                form.random = 0;
+            }
+            axios.post('/api/updatesettings.php', form).then((res) => location.reload())
         },
         updateQuestion(){
             axios.post('/api/questionupdate.php',this.currentQuestion);
@@ -190,6 +229,11 @@ let app = Vue.createApp({
 
             this.currentQuestion.question = answertemp;
             this.currentQuestion.answer = questiontemp;
+        },
+        speak(){
+            speech.text = this.currentQuestion.answer;
+            // speech.text = 'бежать';
+            window.speechSynthesis.speak(speech);
         }
 
     },
@@ -198,9 +242,33 @@ let app = Vue.createApp({
         await axios.get('api/settings.php').then((res) => self.settings = res.data)
         this.getData();
 
+        if(this.settings.activelanguage == 'DE'){
+            speech.voice = voices[1]
+        }
+
+        if (this.settings.activelanguage == 'SP') {
+            speech.voice = voices[5]
+        }
+
+        if (this.settings.activelanguage == 'RU') {
+            speech.voice = voices[16]
+        }
+
+        if(parseInt(this.settings.random) == 1){
+            this.settings.random = true;
+        } else {
+            this.settings.random = false;
+        }
+
+   
+
+
 
 
 
         document.querySelector('#answerinput').focus()
     },
 }).mount('#app')
+
+
+

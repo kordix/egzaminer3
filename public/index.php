@@ -41,13 +41,15 @@ if(!isset($_SESSION['zalogowany'])) {
         <div class="container" style="padding-top:5px">
 
             <div style="width:400px">
-                <p v-if="emptyprompt || !questions.length"><b>Skończyły się słówka! Zmień counterset albo dodaj nowe</b></p>
+                <p v-if="emptyprompt || !questionsFiltered.length"><b>Skończyły się słówka! Zmień counterset albo dodaj nowe</b></p>
                 <div style="display:flex;justify-content:space-between;width:400px">
                     <span style="font-size:12px">Counter: {{currentQuestion?.counter}}</span>
                     <span style="font-size:10px">id: {{currentQuestion?.id}}</span>
                 </div>
-                <p style="margin-top:4px"><b>Przetłumacz:</b> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.answer}} </span>  </p>
+                <p style="margin-top:4px"><b>Przetłumacz:</b> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.answer}} </span>       <button  @click="speak"><i class="bi bi-volume-up"></i></button></p>
 
+
+           
                 <input type="text" @keyup.enter.stop="handleAnswer" v-model="answer" class="form-control mb-2"
                     id="answerinput" autocomplete="off">
 
@@ -119,10 +121,10 @@ if(!isset($_SESSION['zalogowany'])) {
 
 
                 <p v-if="answerFalse"><b style="color:red">ŹLE! </b> 
-                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span> 
+                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span>  <span v-if="settings.tryb=='DEPOLHEAR'">{{currentQuestion?.answer}} ({{currentQuestion?.question}}) </span> 
                 </p>
                 <p v-if="answerTrue"><b style="color:green">DOBRZE! </b>
-                                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span> </p>
+                                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL' || settings.tryb=='DEPOLHEAR'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span> </p>
                 </p>
 
 
@@ -151,6 +153,8 @@ if(!isset($_SESSION['zalogowany'])) {
                     <select name="" id="" v-model="settings.tryb" @change="updateSettings">
                         <option value="POLDE">Polski - obcy</option>
                         <option value="DEPOL">Obcy - polski</option>
+                        <option value="DEPOLHEAR">Obcy - polski (słuch)</option>
+
                     </select>
                 </p>
 
@@ -158,7 +162,7 @@ if(!isset($_SESSION['zalogowany'])) {
                     Tematyka:
 
                     <select name="" id="" @change="updateSettings" v-model="settings.currenttag">
-                        <option value="">wszystkie</option>
+                        <option value="">wszystkie {{questionsFiltered.length}} / {{questions.length}} </option>
                         <option :value="tag" v-for="tag in tags">{{tag}}  {{questions.filter((el)=>el.tags == tag)?.filter((el)=>el.counter < settings.counterset)?.length}} / {{questions.filter((el)=>el.tags == tag).length}}  </option>
                     </select>
                 </p>
@@ -172,6 +176,10 @@ if(!isset($_SESSION['zalogowany'])) {
                         <option value="advanced">Zaawansowane</option>
                     </select>
 
+                </p>
+
+                <p>
+                    Random: <input type="checkbox" v-model="settings.random" @change="updateSettings">
                 </p>
 
 
