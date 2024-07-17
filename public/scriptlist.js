@@ -5,18 +5,18 @@ let app = Vue.createApp({
             settings: {
 
             },
-            formadd:{
-                question:'',
-                answer:'',
-                language:'',
-                tags:''
+            formadd: {
+                question: '',
+                answer: '',
+                language: '',
+                tags: ''
             },
-            sortkey:'',
-            sortorder:1
+            sortkey: '',
+            sortorder: 1
         }
     },
-    computed:{
-        filtered(){
+    computed: {
+        filtered() {
             let self = this;
             let sortorder = this.sortorder;
 
@@ -62,8 +62,8 @@ let app = Vue.createApp({
         async getData() {
             let self = this;
             await axios.get('api/questions.php').then((res) => self.questions = res.data)
-            
-            this.questions = this.questions.filter((el)=>el.language == self.settings.activelanguage);
+
+            this.questions = this.questions.filter((el) => el.language == self.settings.activelanguage);
 
 
             if (this.settings.operator == '<') {
@@ -78,8 +78,14 @@ let app = Vue.createApp({
         updateSettings() {
             axios.post('/api/updatesettings.php', this.settings).then((res) => location.reload())
         },
-        questionAdd(){
-            axios.post('/api/questionadd.php', this.formadd).then((res) => location.reload())
+        questionAdd() {
+            let form = { ...this.formadd };
+            if (form.random) {
+                form.random = 1;
+            } else {
+                form.random = 0;
+            }
+            axios.post('/api/questionadd.php', form).then((res) => location.reload())
         }
     },
     async mounted() {

@@ -45,6 +45,7 @@ if(!isset($_SESSION['zalogowany'])) {
 
         <p><span style="display:inline-block;width:30px" >Tagi:</span> <input type="text" v-model="formadd.tags"></p>
 
+        <p>Zdanie: <input type="checkbox" v-model="formadd.sentence"></p>
 
         <button class="btn btn-primary" :class="{'disabledcursor':!formadd.question || !formadd.answer}" :disabled="!formadd.question || !formadd.answer" @click="questionAdd">Zapisz</button>
            

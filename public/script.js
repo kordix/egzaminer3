@@ -102,7 +102,10 @@ let app = Vue.createApp({
 
             if(this.settings.random){
                 this.questionsFiltered = shuffleArray(this.questionsFiltered);
+            }
 
+            if(this.settings.sentences){
+                this.questionsFiltered = this.questionsFiltered.filter((el)=>el.sentence)
             }
 
 
@@ -259,11 +262,6 @@ let app = Vue.createApp({
         } else {
             this.settings.random = false;
         }
-
-   
-
-
-
 
 
         document.querySelector('#answerinput').focus()

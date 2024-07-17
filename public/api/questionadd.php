@@ -18,7 +18,7 @@ require('db.php');
 
 $dane = json_decode(file_get_contents('php://input'));
 
-$allowed = ['answer','question','tags','language'];
+$allowed = ['sentence','answer','question','tags','language'];
 
 $ok = 1;
 

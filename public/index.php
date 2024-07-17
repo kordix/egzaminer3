@@ -179,7 +179,15 @@ if(!isset($_SESSION['zalogowany'])) {
                 </p>
 
                 <p>
-                    Random: <input type="checkbox" v-model="settings.random" @change="updateSettings">
+                    Random: <input type="checkbox" v-model="settings.random" @change="updateSettings">  Materiał: 
+                    <select name="" id="" v-model.number="settings.sentences" @change="updateSettings">
+                        <option value="0">Słowa</option>
+                        <option value="1">Zdania</option>
+                    </select>
+                </p>
+
+                <p>
+                   
                 </p>
 
 
