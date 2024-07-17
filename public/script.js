@@ -257,7 +257,10 @@ let app = Vue.createApp({
             speech.voice = voices[16]
         }
 
-        document.querySelector('#voicelog').innerHTML = 'Lektor: '+speech.voice.name;
+        document.querySelector('#voicelog').innerHTML += 'Lektor: '+speech.voice.name;
+
+        document.querySelector('#voicelog').innerHTML += voices;
+
 
         console.log(speech.voice.name);
 
