@@ -139,7 +139,7 @@ if(!isset($_SESSION['zalogowany'])) {
                     <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span>  <span v-if="settings.tryb=='DEPOLHEAR'">{{currentQuestion?.answer}} ({{currentQuestion?.question}}) </span> 
                 </p>
                 <p v-if="answerTrue"><b style="color:green">DOBRZE! </b>
-                                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.answer}} </span>  <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='DEPOLHEAR'">{{currentQuestion?.question}} ({{currentQuestion?.answer}}) </span> </p>
+                                    <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span>  <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='DEPOLHEAR'">{{currentQuestion?.question}} ({{currentQuestion?.answer}}) </span> </p>
                 </p>
 
 
