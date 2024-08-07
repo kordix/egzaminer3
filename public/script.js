@@ -69,7 +69,8 @@ let app = Vue.createApp({
             emptyprompt: false,
             tags:[],
             editmode:false,
-            updateprompt:false
+            updateprompt:false,
+            deletePrompt:false
 
         }
     },
@@ -109,6 +110,12 @@ let app = Vue.createApp({
             }
 
 
+            if (!this.settings.sentences) {
+                this.questionsFiltered = this.questionsFiltered.filter((el) => !el.sentence)
+            }
+
+
+
             this.currentQuestion = this.questionsFiltered.find((el) => el.language = self.settings.activelanguage);
 
             this.tags = distinctValues(this.questions, 'tags');
@@ -118,6 +125,7 @@ let app = Vue.createApp({
 
         },
         next() {
+            this.deletePrompt = false;
             this.updateprompt = false;
             let self = this;
             let currentQuestionIndex = this.questionsFiltered.findIndex((el)=>el.id == self.currentQuestion.id);
@@ -237,6 +245,12 @@ let app = Vue.createApp({
             speech.text = this.currentQuestion.answer;
             // speech.text = 'бежать';
             window.speechSynthesis.speak(speech);
+        },
+        async removeQuestion(){
+            await axios.get('/api/deletequestion.php?id='+this.currentQuestion.id);
+            this.deletePrompt = true;
+
+
         }
 
     },

@@ -66,7 +66,11 @@ if(!isset($_SESSION['zalogowany'])) {
                         <button class="btn btn-success btn-sm" @click="setCounter(5)">+5</button>
                     </div>
 
-                    <button class="btn btn-sm btn-warning" @click="editmode = !editmode"><i class="bi bi-pen"></i></button>
+
+                    <div>
+                        <button class="btn btn-sm btn-danger mr-2" @click="removeQuestion"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-sm btn-warning" @click="editmode = !editmode"><i class="bi bi-pen"></i></button>
+                    </div>
 
                 </div>
 
@@ -107,6 +111,16 @@ if(!isset($_SESSION['zalogowany'])) {
 
                     </select>
                     </div>
+
+                     <div class="mb-2">
+                    <label for="">Rodzaj materiału:</label> 
+                    <select name="" id="" v-model="currentQuestion.sentence">
+                        <option value="0">Słowa</option>
+                        <option value="1">Zdania</option>
+
+                    </select>
+                    </div>
+                
                 
 
                     <button class="btn btn-primary mr-1" @click="updateQuestion"><i class="bi bi-floppy"></i></button>
@@ -119,6 +133,7 @@ if(!isset($_SESSION['zalogowany'])) {
                 </div>
 
 
+                <p v-if="deletePrompt" style="color:red"><b> Usunięto pytanie ({{currentQuestion.question}})</b></p>
 
                 <p v-if="answerFalse"><b style="color:red">ŹLE! </b> 
                     <span style="font-size:14px">Prawidłowa odpowiedź:</span> <span v-if="settings.tryb=='DEPOL'">{{currentQuestion?.question}} </span> <span v-if="settings.tryb=='POLDE'">{{currentQuestion?.answer}} </span>  <span v-if="settings.tryb=='DEPOLHEAR'">{{currentQuestion?.answer}} ({{currentQuestion?.question}}) </span> 
